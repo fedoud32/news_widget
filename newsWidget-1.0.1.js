@@ -166,7 +166,7 @@ class NewsWidget extends HTMLElement {
                 <div class="public-card">
                     <header
                         class="public-card__header"
-                        style="background-image: url('${entity.img_url || "./styles/news-default.jpg"}')"
+                        style="background-image: url('${entity.img_url || "./news-default.jpg"}')"
                     >
                         <div class="public-card__tag-infos">
                             <p class="public-card__publish-at">
