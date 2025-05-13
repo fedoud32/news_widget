@@ -18,17 +18,20 @@ class NewsWidget extends HTMLElement {
   injectStyles() {
     const style = document.createElement('style');
     style.textContent = `
+
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
         .news-widget-container {
           display: flex;
-          flex-direction: column;
+          flex-direction: row;
           flex-wrap: wrap;
         }
 
         .wrapper {
-            padding : 8px;
-            flex-grow: 0;
-            max-width: 20%;
-            flex-basis: 20%;
+          width: 25%;
+          position: relative;
+          min-height: 1px;
         }
          
         .link {
@@ -41,6 +44,8 @@ class NewsWidget extends HTMLElement {
           justify-content: center;
           text-align: center;
           min-width: 25%;
+          padding-right: 8px;
+          padding-left: 8px;
         }
   
         .public-card__header {
@@ -81,6 +86,11 @@ class NewsWidget extends HTMLElement {
           margin: 0.5rem auto 1rem;
           font-weight: bold;
           z-index: 1;
+          color: black;
+          font-size: 14px;
+          letter-spacing: 0;
+          line-height: 24px;
+          font-family: 'Poppins', sans-serif !important;
         }
   
         .public-card__title::before {
@@ -98,6 +108,16 @@ class NewsWidget extends HTMLElement {
           position: relative;
           overflow: hidden;
           height: 100px;
+          -webkit-text-size-adjust: 100%;
+          -webkit-font-smoothing: antialiased;
+          font-weight: 400;
+          line-height: 24px;
+          color: black;
+          font-family: 'Poppins', sans-serif !important;
+        }
+        
+        a {
+        color: black;
         }
   
         .public-card__content::after {
@@ -108,12 +128,6 @@ class NewsWidget extends HTMLElement {
           height: 80px;
           bottom: 0;
           background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #fff 100%);
-        }
-  
-        @media (min-width: 768px) {
-          .news-widget-container {
-            flex-direction: row;
-          }
         }
       `;
     this.shadowRoot.appendChild(style);
@@ -131,13 +145,15 @@ class NewsWidget extends HTMLElement {
 
     try {
       const res = await fetch(`${baseUrl}/news?${params}`,
-         { method: "GET",  
+        {
+          method: "GET",
           headers: {
             'Accept': 'application/json',
             'User-Agent': navigator.userAgent,
             'Referer': window.location.href,
             'Origin': window.location.origin
-          }, });
+          },
+        });
       const json = await res.json();
       const newsList = json.data.newsfeeds.data;
 
